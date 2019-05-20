@@ -1,5 +1,7 @@
 from flask import Flask
 
+from tests import blueprint, handle_error
+
 app = Flask(__name__)
 
 
@@ -18,4 +20,7 @@ def get_mongo():
 
 
 if __name__ == '__main__':
+    app.register_blueprint(blueprint)
+    app.register_error_handler(400, handle_error)
+    app.register_error_handler(500, handle_error)
     app.run(debug=True, host='0.0.0.0', port=80)
